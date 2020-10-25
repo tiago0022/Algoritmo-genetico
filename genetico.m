@@ -3,7 +3,7 @@ global exibe_grafico;
 exibe_grafico = 1;
 
 % inicializacao dos valores
-tam_populacao = 10;
+tam_populacao = 100;
 max_iteracoes = 50;
 taxa_muta = 0.2;
 
