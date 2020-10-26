@@ -13,8 +13,6 @@ exibe_bird()
 % cria a populacao inicial
 populacao = cria_populacao(tam_populacao);
 
-melhor_individuo = obtem_melhor_individuo(populacao);
-
 % busca pela melhor populacao
 geracao = 0;
 while geracao < max_iteracoes
@@ -25,46 +23,19 @@ while geracao < max_iteracoes
     % obtem adaptabilidade de cada indivíduo,
     % atribuindo o maior valor para o melhor indivíduo
     vetor_adaptabilidade = atribuicao_proporcional_aptidao(populacao);
+
+    % obtem nova população
+    nova_populacao = zeros(size(populacao));
+    for i=1:tam_populacao
+        
+        % obtem indivíduos que serão os pais
+        pai1 = obtem_pai(populacao, vetor_adaptabilidade);
+        pai2 = obtem_pai(populacao, vetor_adaptabilidade);
+        
+        filho = cruzamento(pai1, pai2);
+        
+    end
     
-    pai1 = obtem_pai(populacao, vetor_aptabilidade)
-    pai2 = obtem_pai(populacao, vetor_aptabilidade);
-    
-%     % selecao dos melhores individuos da populacao, ordenando a populacao
-%     populacao = sortrows(populacao, 3);
-%     
-%     % cria da nova geracao  
-%     % reproducao
-%     
-%     % calcula o degrau
-%     total = sum(populacao(:,2));
-%     populacao(:,3) = populacao(:,2) / total;
-%     
-%     soma = 0;
-%     for i = 1 : tam_populacao,
-%         soma = soma + populacao(i,3);
-%         populacao(i,3) = soma;
-%     end
-%     
-%     clear nova_populacao;
-%     for i = 1 : 2 : num_filhos,
-%         
-%         % sorteio dos pais
-%         % metodo da roleta
-%         somatorio = 0;
-%         pai = [0 0];
-%         sorteio = rand(1);
-%         for k = 1 : 2,
-%             for w=1:tam_populacao,
-%                 for j=1:w,
-%                     somatorio = somatorio + populacao(j,3);
-%                 end
-%                 if sorteio <= somatorio,
-%                     pai(k) = populacao(w,1);
-%                     break;
-%                 end
-%             end
-%         end 
-%         
 %         % sorteio do peso
 %         alfa = rand(1);
 %         
@@ -98,15 +69,17 @@ while geracao < max_iteracoes
 %      for i = 1 : num_filhos,
 %          populacao(i,:) = nova_populacao(i,:);
 %      end   
-%      
-      geracao = geracao + 1;
+%            
+    geracao = geracao + 1;  
 end
-%  
-%  % retorna ao usuario o resultado final
-%  populacao = flipud(sortrows(populacao, 2));
-%  x_maximo = populacao(1,1);
-%  y_maximo = populacao(1,2);
-%  plot(eixo_x, eixo_y, '-k', populacao(:,1)', populacao(:,2)', 'xr');
-%  buf = sprintf('x-max = %f\ny-max = %f', x_maximo, y_maximo);
-%  text((2 * intervalo_maximo / 3) , (4 * y_maximo / 5), buf);
+
+melhor_individuo = obtem_melhor_individuo(populacao);
+melhor_X = populacao(melhor_individuo, 1);
+melhor_Y = populacao(melhor_individuo, 2);
+disp('Melhor indivíduo:');
+disp(melhor_individuo);
+disp('Coordenadas do melhor indivíduo:');
+disp([melhor_X melhor_Y]); 
+disp('Valor obtido pelo melhor indivíduo:');
+disp(bird(melhor_X, melhor_Y));
 
