@@ -1,10 +1,10 @@
 % ativa ou inativa exibição da execução
 global exibe_grafico;
-exibe_grafico = 1;
+exibe_grafico = 0;
 
 % inicializacao dos valores
-tam_populacao = 100;
-max_iteracoes = 50;
+tam_populacao = 10;
+max_iteracoes = 5;
 taxa_muta = 0.2;
 
 % exibe a função inicial
@@ -12,18 +12,20 @@ exibe_bird()
     
 % cria a populacao inicial
 populacao = cria_populacao(tam_populacao);
-exibe_populacao(populacao)
 
 melhor_individuo = obtem_melhor_individuo(populacao);
 
-% % busca pela melhor populacao
-% t = 0;
-% while t < max_iteracoes,
-%  
-%     % exibe a geracao
-%     plot(eixo_x, eixo_y, '-k', populacao(:,1)', populacao(:,2)', 'xr');
-%     pause(0.2);
-% 
+% busca pela melhor populacao
+geracao = 0;
+while geracao < max_iteracoes
+  
+    % exibe a geracao
+    exibe_populacao(populacao);
+    
+    % obtem adaptabilidade de cada indivíduo,
+    % atribuindo o maior valor para o melhor indivíduo
+    vetor_adaptabilidade = atribuicao_proporcional_aptidao(populacao);
+    
 %     % selecao dos melhores individuos da populacao, ordenando a populacao
 %     populacao = sortrows(populacao, 3);
 %     
@@ -94,8 +96,8 @@ melhor_individuo = obtem_melhor_individuo(populacao);
 %          populacao(i,:) = nova_populacao(i,:);
 %      end   
 %      
-%      t = t + 1;
-%  end
+      geracao = geracao + 1;
+end
 %  
 %  % retorna ao usuario o resultado final
 %  populacao = flipud(sortrows(populacao, 2));
