@@ -26,6 +26,9 @@ while geracao < max_iteracoes
     % atribuindo o maior valor para o melhor indivíduo
     vetor_adaptabilidade = atribuicao_proporcional_aptidao(populacao);
     
+    pai1 = obtem_pai(populacao, vetor_aptabilidade)
+    pai2 = obtem_pai(populacao, vetor_aptabilidade);
+    
 %     % selecao dos melhores individuos da populacao, ordenando a populacao
 %     populacao = sortrows(populacao, 3);
 %     
