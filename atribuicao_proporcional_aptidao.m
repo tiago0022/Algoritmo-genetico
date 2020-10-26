@@ -9,7 +9,7 @@ function [vetor_adaptabilidade] = atribuicao_proporcional_aptidao(populacao)
         y = populacao(i, 2);
         vetor_pontuacao_absoluta(i) = bird(x, y);
     end
-    
+      
     valor_maximo = max(vetor_pontuacao_absoluta);
     vetor_pontuacao_absoluta_equalizada = zeros(tamanho_populacao, 1);
     
@@ -23,7 +23,7 @@ function [vetor_adaptabilidade] = atribuicao_proporcional_aptidao(populacao)
     
     % Calcula a atribuição proporcional de aptidao
     for i = 1:tamanho_populacao
-        vetor_adaptabilidade(i) = vetor_pontuacao_absoluta_equalizada(i) / pontuacao_total;
+        vetor_adaptabilidade(i) = 100 * (vetor_pontuacao_absoluta_equalizada(i) / pontuacao_total);
     end
     
 end
