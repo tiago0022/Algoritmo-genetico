@@ -4,7 +4,6 @@ function [pai] = obtem_pai(populacao, vetor_adaptabilidade)
     indice = randi([1 10]);
     pai = [populacao(indice, 1) populacao(indice, 2)];
 
-    %roleta
     somatorio = 0;
     sorteio = rand(1);
 
