@@ -1,23 +1,24 @@
 function [pai] = obtem_pai(populacao, vetor_adaptabilidade)
-    % TODO: obter indice baseado nas porcentagens do vetor_adaptabilidade,
-    % ao invés de obter um índice aleatório
-    indice = randi([1 10]);
-    pai = [populacao(indice, 1) populacao(indice, 2)];
-
+    
+    tamanho_populacao = size(populacao, 1);
+    
     somatorio = 0;
-    sorteio = rand(1);
-
-    for i = 1 : 2,
-            for j=1:tamanho_populacao,
-                for k=1:j,
-                    somatorio = somatorio + populacao(k,3);
-                end
-                if sorteio <= somatorio,
-                    pai(i) = populacao(j,1);
-                    break;
-                end
-            end
+    sorteio = rand(1)*100;
+    
+    % método roleta para escolha do pai
+    for i=1:tamanho_populacao
+        somatorio = somatorio + vetor_adaptabilidade(i);
+        if sorteio <= somatorio
+            pai = populacao(i,1:2);
+            break;
+        end
     end 
+    
+    % Tratativa de erro de arredondamento
+    if sorteio == 100
+        pai = populacao(tamanho_populacao, 1:2);
+    end
+    
 end
 
 

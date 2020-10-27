@@ -1,15 +1,13 @@
 % ativa ou inativa exibição da execução
 global exibe_grafico;
-exibe_grafico = 0;
+exibe_grafico = 1;
 
 % inicializacao dos valores
-tam_populacao = 10;
-max_iteracoes = 5;
+tam_populacao = 100;
+max_iteracoes = 25;
 taxa_mutacao = 0.2;
+duracao_pausa = 0.5;
 
-% exibe a função inicial
-exibe_bird()
-    
 % cria a populacao inicial
 populacao = cria_populacao(tam_populacao);
 
@@ -43,8 +41,11 @@ while geracao < max_iteracoes
         
     end
     
+    % Atualiza população
     populacao = nova_populacao;
     geracao = geracao + 1;  
+    
+    pause(duracao_pausa);
     
 end
 
