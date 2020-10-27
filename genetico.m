@@ -5,7 +5,7 @@ exibe_grafico = 0;
 % inicializacao dos valores
 tam_populacao = 10;
 max_iteracoes = 5;
-taxa_muta = 0.2;
+taxa_mutacao = 0.2;
 
 % exibe a função inicial
 exibe_bird()
@@ -32,45 +32,20 @@ while geracao < max_iteracoes
         pai1 = obtem_pai(populacao, vetor_adaptabilidade);
         pai2 = obtem_pai(populacao, vetor_adaptabilidade);
         
+        % realiza o crossover entre os pais
         filho = cruzamento(pai1, pai2);
+        
+        % realiza a mutação
+        filho = mutacao(filho, taxa_mutacao);
+        
+        % adiciona o filho à nova população
+        nova_populacao(i, 1:2) = filho;
         
     end
     
-%         % sorteio do peso
-%         alfa = rand(1);
-%         
-%         % gera dois novos filhos
-%         if alfa < 0.6
-%             x = (pai(1) * alfa) + (pai(2) * (1 - alfa));
-%             nova_populacao(i, :) = [x, eval(funcao), 0];
-%             x = (pai(2) * alfa) + (pai(1) * (1 - alfa));
-%             nova_populacao(i + 1, :) = [x, eval(funcao), 0];
-%         else
-%             x = pai(1);
-%             nova_populacao(i, :) = [x, eval(funcao), 0];
-%             x = pai(2);
-%             nova_populacao(i + 1, :) = [x, eval(funcao), 0];
-%         end 
-%     end
-%     
-%     % mutacao
-%      for i = 1 : num_filhos,            
-%          % sorteia se vai haver a mutacao
-%          muta = rand(1);
-%          % realiza a mutacao
-%          if muta <= taxa_muta,
-%              x = tamanho_intervalo * rand(1) + intervalo_minimo;
-%              nova_populacao(i,:) = [x, eval(funcao), 0];
-%          end
-%      end
-%      
-%      % descartar os piores, colocando os filhos em seus lugares
-%      populacao(:,3) = 0;
-%      for i = 1 : num_filhos,
-%          populacao(i,:) = nova_populacao(i,:);
-%      end   
-%            
+    populacao = nova_populacao;
     geracao = geracao + 1;  
+    
 end
 
 melhor_individuo = obtem_melhor_individuo(populacao);
